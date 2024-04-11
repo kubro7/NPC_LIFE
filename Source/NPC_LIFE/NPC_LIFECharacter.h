@@ -44,6 +44,10 @@ class ANPC_LIFECharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction;
 
+	/** Sprint Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* SprintAction;
+
 public:
 	ANPC_LIFECharacter();
 	
@@ -55,6 +59,10 @@ protected:
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
+
+	/** Called for sprinting input */
+	void SprintStarted(const FInputActionValue& Value);
+	void SprintStopped(const FInputActionValue& Value);
 			
 
 protected:

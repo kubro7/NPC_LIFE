@@ -13,8 +13,11 @@ public class NPC_LIFE : ModuleRules
 			"Core", 
 			"CoreUObject", 
 			"Engine", 
-			"InputCore", 
-			"EnhancedInput" 
-		});
+			"InputCore",
+            "EnhancedInput",
+            "AIModule",
+            "GameplayTasks",
+            "NavigationSystem"
+        });
 	}
 }

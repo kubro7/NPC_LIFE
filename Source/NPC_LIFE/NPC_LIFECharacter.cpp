@@ -67,6 +67,11 @@ void ANPC_LIFECharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+
+	// Limit View Pitch
+	APlayerCameraManager* const cameraManager = GetWorld()->GetFirstPlayerController()->PlayerCameraManager;
+	cameraManager->ViewPitchMin = -50.0f;
+	cameraManager->ViewPitchMax = 10.f;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -86,6 +91,10 @@ void ANPC_LIFECharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ANPC_LIFECharacter::Look);
+
+		// Sprinting
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &ANPC_LIFECharacter::SprintStarted);
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &ANPC_LIFECharacter::SprintStopped);
 	}
 	else
 	{
@@ -127,4 +136,14 @@ void ANPC_LIFECharacter::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+void ANPC_LIFECharacter::SprintStarted(const FInputActionValue& Value)
+{
+	GetCharacterMovement()->MaxWalkSpeed = 1000.f;
+}
+
+void ANPC_LIFECharacter::SprintStopped(const FInputActionValue& Value)
+{
+	GetCharacterMovement()->MaxWalkSpeed = 500.f;
 }
