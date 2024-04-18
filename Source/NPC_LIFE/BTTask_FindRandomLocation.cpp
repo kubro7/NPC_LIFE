@@ -9,12 +9,12 @@
 
 UBTTask_FindRandomLocation::UBTTask_FindRandomLocation(FObjectInitializer const& ObjectInitializer)
 {
-	NodeName = "Find Random Location in Nav Mesh";
+	NodeName = TEXT("Find Random Location in Nav Mesh");
 }
 
 EBTNodeResult::Type UBTTask_FindRandomLocation::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-	EBTNodeResult::Type retVal = EBTNodeResult::Failed;
+	EBTNodeResult::Type RetVal = EBTNodeResult::Failed;
 
 	// get AI controller and its npc
 	if (auto* const Controller = Cast<ANpcAIController>(OwnerComp.GetAIOwner()))
@@ -38,11 +38,11 @@ EBTNodeResult::Type UBTTask_FindRandomLocation::ExecuteTask(UBehaviorTreeCompone
 				
 				//finish with success
 				FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
-				retVal = EBTNodeResult::Succeeded;
+				RetVal = EBTNodeResult::Succeeded;
 			}
 		}
 	}
-	return retVal;
+	return RetVal;
 }
 
 
